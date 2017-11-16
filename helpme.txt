@@ -4,6 +4,7 @@ source: https://www.youtube.com/watch?v=gnsO8-xJ8rs
 npm install express --save
 npm install body-parser --save
 
+
 npm install nodemon -g (not need to run node app.js everytime when update the app.js file)
 rob-imac:Express rtlin$ npm install nodemon -g
 //start installing description for nodemon:
@@ -18,3 +19,24 @@ Pass --update-binary to reinstall or --build-from-source to recompile
 added 282 packages in 13.538s
 rob-imac:Express rtlin$ nodemon
 //end installing description for nodemon
+
+
+npm install ejs --save  (for js template  - view engine)
+npm install express-validator --save (for form validator)
+
+npm install mongojs --save (for access mongo database)
+
+- start mongo on stand alone:
+go to directory: /Users/rtlin/Software/mongo/mongodb/bin
+sudo ./mongod  (start mongo server with mac’s super user)
+
+- access mongo db:
+sudo ./mongo  (access mongo server with mac’s super user)
+
+>show dbs
+>use customerapp
+>db.createCollection('users')
+>show collections
+>db.users.insert([{first_name:'John', last_name:'Doe', email:'jdoe@yahoo.com'},{first_name:'Kevin', last_name:'Smith', email:'kSmith@yahoo.com'},{first_name:'Bob', last_name:'Jacksons', email:'bjaksons@yahoo.com'}])
+>db.users.find()
+
