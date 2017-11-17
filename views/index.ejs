@@ -1,6 +1,10 @@
 <html>
 	<% include partials/header %>
 	<body>
+		<% if(isMongo){ %>
+			--- With Mongo --<br>
+		<%}%>
+	
 		<% if(errors !=undefined){ %>
 			<ul>
 				<% errors.forEach(function(error){ %>
