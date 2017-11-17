@@ -7,7 +7,7 @@ var expressValidator = require('express-validator');
 var mongojs = require('mongojs');
 var db = mongojs('customerapp', ['users']);
 var ObjectId = mongojs.ObjectId;
-
+var isMongo = true;
 var app = express();
 /*
 var logger = function(req, res, next){
@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Global Vars
 app.use(function(req, res, next){
-	res.locals.errors = null;
+	res.locals.errors = null;	
 	next();
 });
 
@@ -93,25 +93,26 @@ app.get('/', function(req, res){
 	//res.send('Hello World - 3');
 	//res.json(people);
 	
-	
-	db.users.find(function (err, docs){
-		if(err){
-			console.log("ERROR on mongo database");
-		}else{
-			console.log(docs);
-			res.render('index', {
-				title: 'Customers',
-				users: docs
-			});
-		}
-	});
-	
-	/*
-	res.render('index', {
-		title: 'Customers',
-		users: users
-	});	
-	*/
+	if(isMongo){
+		db.users.find(function (err, docs){
+			if(err){
+				console.log("ERROR on mongo database");
+			}else{
+				console.log(docs);
+				res.render('index', {
+					title: 'Customers',
+					users: docs,
+					isMongo: isMongo
+				});
+			}
+		});
+	}else{	
+		res.render('index', {
+			title: 'Customers',
+			users: users,
+			isMongo: isMongo
+		});		
+	}
 });
 
 app.post('/users/add', function(req,res){
@@ -129,7 +130,8 @@ app.post('/users/add', function(req,res){
 		res.render('index', {
 			title: 'Customers',
 			users: users,
-			errors: errors
+			errors: errors,
+			isMongo: isMongo
 		});
 		
 	}else{
@@ -141,15 +143,16 @@ app.post('/users/add', function(req,res){
 		console.log('SUCCESS');
 		console.log(newUser);
 		
-		
-		db.users.insert(newUser, function(err, result){
-			if(err){
-				console.log(err);				
-			}
-			res.redirect('/');
-		});
-		
-		//res.send('New Customer Successfully Added');
+		if(isMongo){
+			db.users.insert(newUser, function(err, result){
+				if(err){
+					console.log(err);				
+				}
+				res.redirect('/');
+			});
+		}else{		
+			res.send('New Customer Successfully Added. <a href="/">click here</a>');
+		}
 	}	
 		
 });
@@ -158,14 +161,16 @@ app.post('/users/add', function(req,res){
 app.delete('/users/delete/:id', function(req,res){
 	console.log("x=" + req.params.id);
 	
-	
-	db.users.remove({_id: ObjectId(req.params.id)}, function(err, result){
-		if(err){
-			console.log(err);
-		}
-		res.redirect('/');
-	});
-	
+	if(isMongo){
+		db.users.remove({_id: ObjectId(req.params.id)}, function(err, result){
+			if(err){
+				console.log(err);
+			}
+			res.redirect('/');
+		});
+	}else{
+		res.send('Deleted Customer.')
+	}	
 });
 
 

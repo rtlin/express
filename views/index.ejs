@@ -30,7 +30,7 @@
 		<%//= users %>
 		<ul>
 		<% users.forEach(function(user){ %>
-			<li><%= user.first_name %> <%= user.last_name %> - <a href="#" class="deleteUser" data-id="<%=user._id %>">Delete</a>	
+			<li><%= user.first_name %> <%= user.last_name %> - <a href="#" class="deleteUser" data-id="<%=isMongo?user._id:user.id %>">Delete</a>	
 			</li>
 		
 		<%})%>
