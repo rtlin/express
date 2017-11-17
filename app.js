@@ -122,7 +122,7 @@ app.get('/', function(req, res){
 app.post('/users/add', [
 	  check('first_name', 'First name is required').isLength({ min: 1 }),
 	  check('last_name', 'Last name is required').isLength({ min: 1 }),
-	  check('email', 'Email is required').isLength({ min : 1 })
+	  check('email', 'Email is required').isLength({ min : 1 }).isEmail().withMessage('must be an email')
 	], (req, res, next) => {
 	  try {
 		  const errors = validationResult(req);
