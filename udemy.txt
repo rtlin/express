@@ -1,0 +1,92 @@
+
+https://www.udemy.com/complete-python-bootcamp
+
+https://nbviewer.jupyter.org/
+jmportilla
+https://nbviewer.jupyter.org/github/jmportilla/
+
+
+http://nbviewer.jupyter.org/github/jmportilla/Complete-Python-Bootcamp/tree/master/
+
+
+https://try.jupyter.org/
+
+Modules and Packages:
+https://www.udemy.com/complete-python-bootcamp/learn/v4/t/lecture/3512566?start=0
+http://nbviewer.jupyter.org/github/jmportilla/Complete-Python-Bootcamp/blob/master/Modules%20and%20Packages.ipynb
+from terminal:
+conda install *modules name*
+pip install *module name*
+
+how to get modules:
+1.Google search
+2.GitHub (e.g. Grab)
+
+----------------------------------------------
+https://www.udemy.com/code-dynamic-websites
+php edit tool:
+
+Coda 2 for Mac
+textastic: $5.99
+sublime text
+expresso
+bradhussey.ca/resources
+
+
+--------------------------------------------------------
+https://www.udemy.com/serverless-architecture-on-aws
+
+Serverless N-Tier Architecute on AWS:
+
+presentation(s3)
+Integration/Control  (amazonn API Gateway)
+DAO/Model	(Lambda)
+Backend Data    (Amazon DynamoDB)
+
+
+Dao layer:
+
+var AWS = require("aws-sdk");
+var docClient = new AWS.DnamoDB.DocumentClient();
+
+exports.handler = (event, context, callback) => {
+	console.log("PARAMS---:" + parseInt(event.params.querystring.bookid));
+	var params = {
+		TableName:"Books",
+		Key:{
+		     "bookid": parseInt(event.params.querystring.bookid)
+		}
+	};
+
+	docClient.get(params, function(err, data){
+		if(err){
+			console.error("Unable to read item. Error JSON:", JSON.stringify(err,null,2));
+		}else {
+			console.log("GetItem succeded:", JSON.stringify(data, null,2));
+			callback(null, JSON.parse(JSON.stringify(data,null,2)));
+		}
+		
+	});
+};
+
+
+
+///////////////
+exports.handler = (event, context, callback) => {
+    // TODO implement
+    callback(null, 'Hello from Lambda');
+};
+
+
+
+{
+  
+"body-json": {},
+
+"params": {
+	"path":{},
+	"querystring":{
+	   "bookid":"1"
+	}
+     } 
+}
