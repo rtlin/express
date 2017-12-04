@@ -5,6 +5,7 @@ var path = require('path');
 const { check, oneOf, validationResult } = require('express-validator/check');
 
 
+
 var mongojs = require('mongojs');
 var db = mongojs('customerapp', ['users']);
 var ObjectId = mongojs.ObjectId;
@@ -285,6 +286,18 @@ app.delete('/users/delete/:id', function(req,res){
 		res.send('Deleted Customer.')
 	}	
 });
+
+///////////////////////////////////////////////////
+//https://www.udemy.com/the-web-developer-bootcamp
+//////////////////////////////////////////////////
+app.get("/fallinlovewith/:thing", function(req, res){
+	var thing = req.params.thing;
+	//res.send("You fell in love with " + thing);
+	
+	res.render("love.ejs", {thingVar: thing});
+	
+});
+
 
 
 app.listen(3000, function(){
